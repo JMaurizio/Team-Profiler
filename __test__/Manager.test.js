@@ -8,6 +8,6 @@ test("Get manager office number", () => {
 
 test("Get role of manager", () => {
     const role = "Manager"
-    const manager = new Manager("name", 0, "test@test.com", 1);
+    const manager = new Manager("name", 0, "test@test.com", 0);
     expect(manager.getRole()).toBe(role); 
 })
