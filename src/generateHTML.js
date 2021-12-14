@@ -31,7 +31,7 @@ const newManager = function(employee) {
     <div class="col-3 card m-4">
         <div class="card-header bg-success">
             <h3>${employee.name}</h3>
-            <h4>Manager ${roleIcon}</h4>
+            <h4>${roleIcon} Manager</h4>
         </div>
 
         <div class="card-body">
@@ -42,6 +42,72 @@ const newManager = function(employee) {
     </div>`
 };
 
-roleIcon = function(employee) {
-    
+const newEngineer = function(employee) {
+    return`
+    <div class="col-3 card m-4">
+        <div class="card-header bg-success">
+            <h3>${employee.name}</h3>
+            <h4>${roleIcon} Engineer</h4>
+        </div>
+
+        <div class="card-body">
+            <p>ID:${employee.id}</p>
+            <p>Email:${employee.email}</p>
+            <p>GitHub Username:${employee.githubUsername}</p>
+        </div>
+    </div>`
+};
+
+const newIntern = function(employee) {
+    return`
+    <div class="col-3 card m-4">
+        <div class="card-header bg-success">
+            <h3>${employee.name}</h3>
+            <h4>${roleIcon} Intern</h4>
+        </div>
+
+        <div class="card-body">
+            <p>ID:${employee.id}</p>
+            <p>Email:${employee.email}</p>
+            <p>School:${employee.school}</p>
+        </div>
+    </div>`
+};
+
+roleIcon = function(role) {
+    switch (role) {
+        case "Manager":
+            roleIcon = `<i class="bi bi-building"></i>`;
+        case "Engineer":
+            roleIcon = `<i class="bi bi-pc-display-horizontal"></i>`;
+        case "Intern":
+            roleIcon = `<i class="bi bi-mortarboard"></i>`;        
+    }
 }
+
+createCards = (data) => {
+    employeeArray = [];
+
+    for (i = 0; i < data.length; i++) {
+        const employeeCard = data[i];
+        const role = employee.getRole()
+        
+        if(role == "Manager") {
+            const managerCard = newManager(employeeCard);
+            employeeArray.push(managerCard);
+        }
+        if(role == "Engineer") {
+            const engineerCard = newEngineer(employeeCard);
+            employeeArray.push(engineerCard);
+        }
+        if(role == "Intern") {
+            const internCard = newIntern(employeeCard);
+            employeeArray.push(internCard);
+        }
+    }
+    const cards = employeeArray.join("");
+    const createCards = generatePage(cards);
+    return createCards;
+};
+
+module.exports = generateHTML;
