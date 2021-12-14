@@ -32,4 +32,21 @@ const addEmployee = () => {
             message: "Please enter the employee's Email."
         }
     ])
+    .then(role => {
+        if(role == "Manager") {
+            return inquirer.prompt([
+                {
+                    type: "input",
+                    name: "office number",
+                    message: "What is the Manager's office number."
+                },
+                {
+                    type: "choices",
+                    name: "add",
+                    message: "Would you like to add another employee?",
+                    choices:["yes","no"]
+                }
+            ])
+        }
+    })
 }
