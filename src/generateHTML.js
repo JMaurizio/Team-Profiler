@@ -110,4 +110,4 @@ createCards = (data) => {
     return createCards;
 };
 
-module.exports = generateHTML;
+module.exports = ("./src/generateHTML");

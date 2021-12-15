@@ -11,24 +11,24 @@ const team = [];
 const addEmployee = () => {
     return inquirer.prompt([
         {
+            name: "role",
             type: "list",
-            name:"role",
             message:"What is the employee's role?",
             choices:["Manager","Engineer","Intern"]
         },
         {
-            type: "input",
             name: "name",
+            type: "input",
             message:"Please enter employee name.",
         },
         {
-            type: "input",
             name: "id",
+            type: "input",
             message: "Please enter the employee's ID."
         },
         {
-            type: "input",
             name: "email",
+            type: "input",
             message: "Please enter the employee's Email."
         }
     ])
@@ -36,17 +36,59 @@ const addEmployee = () => {
         if(role == "Manager") {
             return inquirer.prompt([
                 {
+                    name: "officeNumber",
                     type: "input",
-                    name: "office number",
-                    message: "What is the Manager's office number."
-                },
-                {
-                    type: "choices",
-                    name: "add",
-                    message: "Would you like to add another employee?",
-                    choices:["yes","no"]
+                    message: "What is the Manager's office number?"
                 }
             ])
+            .then(answers => {
+                const manager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber)
+                team.push(manager);
+            })
         }
+        if(role == "Engineer") {
+            return inquirer.prompt([
+                {
+                    name: "github",
+                    type: "input",
+                    message: "What is the Engineers GitHub username?"
+                }
+            ])
+            .then(answers => {
+                const engineer = new Engineer (answers.name, answers.id, answers.email, answers.github)
+                team.push(engineer);
+            })
+        }
+        if(role == "Intern") {
+            return inquirer.prompt([
+                {
+                    name: "school",
+                    type: "input",
+                    message: "What school is the Intern attending?"
+                }
+            ])
+            .then(answers => {
+                const intern = new Intern (answers.name, answers.id, answers.email, answers.school)
+                team.push(intern);
+            })
+        }
+        return inquirer.prompt([
+            {
+               name: "add",
+               type: "list",
+               message: "Would you like to add another employee?",
+               choices: ["Yes","No"]  
+            }
+        ])
+    })
+    .then(answers =>{
+        if(answers == "Yes") {
+            addEmployee()
+        }
+        else {
+            return generateHTML(team)
+        }   
     })
 }
+
+addEmployee()
