@@ -106,8 +106,8 @@ createCards = (data) => {
         }
     }
     const cards = employeeArray.join("");
-    const createCards = generatePage(cards);
-    return createCards;
+    const create = generatePage(cards);
+    return create;
 };
 
 module.exports = ("./src/generateHTML");

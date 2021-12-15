@@ -86,7 +86,8 @@ const addEmployee = () => {
             addEmployee()
         }
         else {
-            return generateHTML(team)
+            return createCards(team)
+            return fs.writeFile("./dist/index.html") 
         }   
     })
 }
