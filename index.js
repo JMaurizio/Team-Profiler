@@ -14,7 +14,7 @@ const addEmployee = () => {
             name: "role",
             type: "list",
             message:"What is the employee's role?",
-            choices:["Manager","Engineer","Intern"]
+            choices:[{name: "Manager", value: 0},{name: "Engineer", value: 1},{name: "Intern", value: 2}]
         },
         {
             name: "name",
@@ -30,59 +30,57 @@ const addEmployee = () => {
             name: "email",
             type: "input",
             message: "Please enter the employee's Email."
+        },
+        {
+            name: "officeNumber",
+            type: "input",
+            message: "What is the Manager's office number?",
+            when: (response) => response.role === 0,
+        },
+        {
+            name: "github",
+            type: "input",
+            message: "What is the Engineers GitHub username?",
+            when: (response) => response.role === 1
+        },
+        {
+            name: "school",
+            type: "input",
+            message: "What school is the Intern attending?",
+            when: (response) => response.role === 2
         }
     ])
-    .then(role => {
-        if(role == "Manager") {
-            return inquirer.prompt([
-                {
-                    name: "officeNumber",
-                    type: "input",
-                    message: "What is the Manager's office number?"
-                }
-            ])
-            .then(answers => {
-                const manager = new Manager (answers.name, answers.id, answers.email, answers.officeNumber)
-                team.push(manager);
-            })
+    .then(responses => {
+        if(responses.role === 0) {
+            const manager = new Manager (responses.name, responses.id, responses.email, responses.officeNumber)
+            team.push(manager);
+            console.log(responses)
+            addAnotherEmployee()
         }
-        if(role == "Engineer") {
-            return inquirer.prompt([
-                {
-                    name: "github",
-                    type: "input",
-                    message: "What is the Engineers GitHub username?"
-                }
-            ])
-            .then(answers => {
-                const engineer = new Engineer (answers.name, answers.id, answers.email, answers.github)
-                team.push(engineer);
-            })
+        if(responses.role === 1) {
+            const engineer = new Engineer (responses.name, responses.id, responses.email, responses.github)
+            team.push(engineer);
+            addAnotherEmployee()
         }
-        if(role == "Intern") {
-            return inquirer.prompt([
-                {
-                    name: "school",
-                    type: "input",
-                    message: "What school is the Intern attending?"
-                }
-            ])
-            .then(answers => {
-                const intern = new Intern (answers.name, answers.id, answers.email, answers.school)
-                team.push(intern);
-            })
+        if(responses.role === 2) {
+            const intern = new Intern (responses.name, responses.id, responses.email, responses.school, responses.role)
+            team.push(intern);
+            addAnotherEmployee()
         }
-        return inquirer.prompt([
-            {
-               name: "add",
-               type: "list",
-               message: "Would you like to add another employee?",
-               choices: ["Yes","No"]  
-            }
-        ])
     })
-    .then(answers =>{
-        if(answers == "Yes") {
+}    
+
+const addAnotherEmployee = () => {
+    return inquirer.prompt([
+        {
+           name: "add",
+           type: "list",
+            message: "Would you like to add another employee?",
+           choices: [{name: "Yes", value: 0},{name: "No", value: 1}]  
+        }
+    ])
+    .then((response) =>{
+        if(response.add === 0) {
             addEmployee()
         }
         else {
@@ -90,6 +88,6 @@ const addEmployee = () => {
             return fs.writeFile("./dist/index.html") 
         }   
     })
-}
+};
 
 addEmployee()
