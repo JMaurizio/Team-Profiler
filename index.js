@@ -52,7 +52,7 @@ const addEmployee = () => {
     ])
     .then(responses => {
         if(responses.role === 0) {
-            const manager = new Manager (responses.name, responses.id, responses.email, responses.officeNumber)
+            const manager = new Manager (responses.name, responses.id, responses.email, responses.officeNumber, responses.role)
             team.push(manager);
             addAnotherEmployee()
         }
