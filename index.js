@@ -54,7 +54,6 @@ const addEmployee = () => {
         if(responses.role === 0) {
             const manager = new Manager (responses.name, responses.id, responses.email, responses.officeNumber)
             team.push(manager);
-            console.log(responses)
             addAnotherEmployee()
         }
         if(responses.role === 1) {

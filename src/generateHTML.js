@@ -1,9 +1,13 @@
+const Engineer = require("../lib/Engineer");
+const Intern = require("../lib/Intern");
+const Manager = require("../lib/Manager");
+
 const newManager = function(employee) {
     return`
     <div class="col-3 card m-4">
         <div class="card-header bg-success">
             <h3>${employee.name}</h3>
-            <h4>${roleIcon} Manager</h4>
+            <h4><i class="bi bi-building"></i> Manager</h4>
         </div>
 
         <div class="card-body">
@@ -19,7 +23,7 @@ const newEngineer = function(employee) {
     <div class="col-3 card m-4">
         <div class="card-header bg-success">
             <h3>${employee.name}</h3>
-            <h4>${roleIcon} Engineer</h4>
+            <h4><i class="bi bi-pc-display-horizontal"></i> Engineer</h4>
         </div>
 
         <div class="card-body">
@@ -35,7 +39,7 @@ const newIntern = function(employee) {
     <div class="col-3 card m-4">
         <div class="card-header bg-success">
             <h3>${employee.name}</h3>
-            <h4>${roleIcon} Intern</h4>
+            <h4><i class="bi bi-mortarboard"></i> Intern</h4>
         </div>
 
         <div class="card-body">
@@ -46,32 +50,20 @@ const newIntern = function(employee) {
     </div>`
 };
 
-roleIcon = function(role) {
-    switch (role) {
-        case "Manager":
-            roleIcon = `<i class="bi bi-building"></i>`;
-        case "Engineer":
-            roleIcon = `<i class="bi bi-pc-display-horizontal"></i>`;
-        case "Intern":
-            roleIcon = `<i class="bi bi-mortarboard"></i>`;        
-    }
-}
-
 createCards = (data) => {
     employeeArray = [];
 
     for (i = 0; i < data.length; i++) {
         const employeeCard = data[i];
-        console.log(data)
-        if(data.role == "Manager") {
+        if(Manager) {
             const managerCard = newManager(employeeCard);
             employeeArray.push(managerCard);
         }
-        if(data.role == "Engineer") {
+        if(Engineer) {
             const engineerCard = newEngineer(employeeCard);
             employeeArray.push(engineerCard);
         }
-        if(data.role == "Intern") {
+        if(Intern) {
             const internCard = newIntern(employeeCard);
             employeeArray.push(internCard);
         }
