@@ -59,17 +59,14 @@ createCards = (data) => {
         if(employeeRole === 'Manager') {
             const managerCard = newManager(employeeCard);
             employeeArray.push(managerCard);
-            console.log("manager card created")
         }
         if(employeeRole === 'Engineer') {
             const engineerCard = newEngineer(employeeCard);
             employeeArray.push(engineerCard);
-            console.log("engineer card created")
         }
         if(employeeRole === 'Intern') {
             const internCard = newIntern(employeeCard);
             employeeArray.push(internCard);
-            console.log("intern card created")
         }
     }
     const cards = employeeArray.join("");
@@ -78,7 +75,6 @@ createCards = (data) => {
 };
 
 const generatePage = function(cards) {
-    console.log(cards)
     return`
     <!DOCTYPE html>
     <html lang="en">
@@ -103,7 +99,7 @@ const generatePage = function(cards) {
         </main>
     </body>
     </html>`
-    
+
 };
 
 module.exports = ("./src/generateHTML");

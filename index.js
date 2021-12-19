@@ -5,6 +5,7 @@ const Intern = require("./lib/Intern");
 
 const fs = require("fs");
 const inquirer = require("inquirer");
+const { create } = require("domain");
 
 const team = [];
 
@@ -67,7 +68,7 @@ const addEmployee = () => {
             addAnotherEmployee()
         }
     })
-}    
+};    
 
 const addAnotherEmployee = () => {
     return inquirer.prompt([
@@ -83,9 +84,18 @@ const addAnotherEmployee = () => {
             addEmployee()
         }
         else {
-            return createCards(team)
-            return fs.writeFile("./dist/index.html") 
+            return writeFile(createCards(team))
         }   
+    })
+};
+
+const writeFile = data => {
+    fs.writeFile("./dist/index.html", data, err => {
+        if(err) {
+            console.log(err);
+            return
+        }
+        console.log("Team profile generated!")
     })
 };
 
